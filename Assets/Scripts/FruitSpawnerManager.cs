@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class FruitSpawnerManager : MonoBehaviour
@@ -27,12 +27,12 @@ public class FruitSpawnerManager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval + Random.Range(-minRandomDelay, minRandomDelay));
 
-            // Choisit combien d’objets spawnent cette fois (1 à 3)
+            // Choisit combien dâ€™objets spawnent cette fois (1 Ã  3)
             int objectsToSpawn = Random.Range(1, 4); // 1, 2 ou 3
             for (int i = 0; i < objectsToSpawn; i++)
             {
                 SpawnRandomObject();
-                yield return new WaitForSeconds(0.2f); // petit délai entre les spawns d’un même groupe
+                yield return new WaitForSeconds(0.2f); // petit dÃ©lai entre les spawns dâ€™un mÃªme groupe
             }
         }
     }
@@ -50,8 +50,8 @@ public class FruitSpawnerManager : MonoBehaviour
         // Chance de bombe
         if (bombPrefab != null && Random.value < bombSpawnChance)
             prefabToSpawn = bombPrefab;
-        // Chance de spawn d’un fruit doré (ex : 10%)
-        if (Random.value < goldenChance && goldenFruitPrefab != null)
+        // Chance de spawn dâ€™un fruit dorÃ© (ex : 10%)
+        else if (Random.value < goldenChance && goldenFruitPrefab != null)
         {
             prefabToSpawn = goldenFruitPrefab;
         }

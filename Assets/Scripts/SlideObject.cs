@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using EzySlice;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ public class SlideObject : MonoBehaviour
 
         if (gameManager == null)
         {
-            GameManager gmSearch = GameObject.FindObjectOfType<GameManager>();
+            GameManager gmSearch = GameObject.FindAnyObjectByType<GameManager>();
             if (gmSearch != null)
                 gameManager = gmSearch.gameObject;
         }
@@ -69,7 +69,27 @@ public class SlideObject : MonoBehaviour
 
         GameManager gm = gameManager != null ? gameManager.GetComponent<GameManager>() : null;
 
-        // Fruit de d�marrage
+        // Un choix du menu se coupe sans gagner de point ni lancer la partie.
+        DifficultyChoice choice = target.GetComponentInParent<DifficultyChoice>();
+        if (choice != null)
+        {
+            if (choice.IsAnimating) return;
+
+            SlicedHull choiceHull = target.Slice(target.transform.position, Vector3.up, crossSectionMaterial);
+            if (choiceHull != null)
+            {
+                AddPhysicsToSlice(choiceHull.CreateUpperHull(target, crossSectionMaterial),
+                    Vector3.zero, Vector3.zero, choice.respawnDelay);
+                AddPhysicsToSlice(choiceHull.CreateLowerHull(target, crossSectionMaterial),
+                    Vector3.zero, Vector3.zero, choice.respawnDelay);
+            }
+
+            PlaySound(fruitCutSound);
+            choice.SelectDifficulty();
+            return;
+        }
+
+        // Fruit de démarrage
         if (target.CompareTag(startButtonTag))
         {
             if (gm != null)
@@ -129,9 +149,15 @@ public class SlideObject : MonoBehaviour
                 var main = ps.main;
 
                 Renderer rend = target.GetComponent<Renderer>();
-                if (rend != null)
-                    main.startColor = rend.material.color;
+                Material mat = rend != null ? rend.sharedMaterial : null;
 
+                if (mat != null)
+                {
+                    if (mat.HasProperty("_BaseColor"))
+                        main.startColor = mat.GetColor("_BaseColor");
+                    else if (mat.HasProperty("_Color"))
+                        main.startColor = mat.GetColor("_Color");
+                }
                 ps.Play();
             }
 
@@ -146,7 +172,7 @@ public class SlideObject : MonoBehaviour
     }
 
 
-    private void AddPhysicsToSlice(GameObject slicedObject, Vector3 inheritedVelocity, Vector3 inheritedAngularVelocity)
+    private void AddPhysicsToSlice(GameObject slicedObject, Vector3 inheritedVelocity, Vector3 inheritedAngularVelocity, float lifetime = 8f)
     {
         if (slicedObject == null) return;
 
@@ -157,7 +183,7 @@ public class SlideObject : MonoBehaviour
         rb.angularVelocity = inheritedAngularVelocity;
         rb.AddExplosionForce(cutForce, slicedObject.transform.position, 5f);
         rb.AddTorque(Random.insideUnitSphere * 3f, ForceMode.Impulse);
-        Destroy(slicedObject, 8f);
+        Destroy(slicedObject, lifetime);
     }
 
     private void PlaySound(AudioClip clip)

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("References")]
     public FruitSpawnerManager spawner;
+    public GameObject difficultyMenu;
     public GameObject startFruitPrefab;
     public Transform startFruitSpawnPoint;
     public TextMeshProUGUI scoreText;
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
         {
-            Debug.Log("Touche R pressée - Respawn StartFruit");
+            Debug.Log("Touche R pressÃ©e - Respawn StartFruit");
             RespawnStartFruit();
         }
 
@@ -68,6 +69,9 @@ public class GameManager : MonoBehaviour
     {
         if (gameStarted) return;
         gameStarted = true;
+
+        if (difficultyMenu != null)
+            difficultyMenu.SetActive(false);
 
         score = 0;
         UpdateScoreUI();
@@ -95,7 +99,7 @@ public class GameManager : MonoBehaviour
 
         if (gameStarted)
         {
-            Debug.Log("Timer terminé - appel de EndGame()");
+            Debug.Log("Timer terminÃ© - appel de EndGame()");
             EndGame();
         }
 
@@ -106,30 +110,41 @@ public class GameManager : MonoBehaviour
     {
         if (!gameStarted) return;
         gameStarted = false;
-        Debug.Log("Fin de partie : chrono terminé");
+        Debug.Log("Fin de partie : chrono terminÃ©");
 
         if (spawner != null)
             spawner.StopSpawning();
 
-        foreach (var rb in FindObjectsByType<Rigidbody>(FindObjectsSortMode.None))
+        int sliceableLayer = LayerMask.NameToLayer("Sliceable");
+
+        foreach (var rb in FindObjectsByType<Rigidbody>())
         {
-            if (rb.CompareTag("Sliceable") || rb.CompareTag("Bomb"))
+            // Les objets du menu ne sont pas des fruits de la partie.
+            if (difficultyMenu != null && rb.transform.IsChildOf(difficultyMenu.transform))
+                continue;
+
+            if (rb.CompareTag("Bomb") ||
+                (rb.gameObject.layer == sliceableLayer &&
+                 !rb.CompareTag("StartButton")))
+            {
                 Destroy(rb.gameObject);
+            }
         }
 
         RespawnStartFruit();
 
+        if (difficultyMenu != null)
+            difficultyMenu.SetActive(true);
 
-        // Mise à jour du High Score
+        // Mise Ã  jour du High Score
         int previousHighScore = PlayerPrefs.GetInt("HighScore", 0);
         if (score > previousHighScore)
         {
             PlayerPrefs.SetInt("HighScore", score);
             PlayerPrefs.Save();
-            Debug.Log("Nouveau High Score enregistré : " + score);
+            Debug.Log("Nouveau High Score enregistrÃ© : " + score);
         }
         UpdateHighScoreUI();
-
     }
 
     public void RespawnStartFruit()
@@ -138,26 +153,26 @@ public class GameManager : MonoBehaviour
         if (existingStart != null)
         {
             Destroy(existingStart);
-            Debug.Log("Ancien StartFruit supprimé avant respawn.");
+            Debug.Log("Ancien StartFruit supprimÃ© avant respawn.");
         }
 
-        // Vérifie que le spawn point est valide
+        // VÃ©rifie que le spawn point est valide
         if (startFruitSpawnPoint == null)
         {
-            // Essaie de le retrouver dans la scène
+            // Essaie de le retrouver dans la scÃ¨ne
             GameObject foundSpawn = GameObject.Find("StartFruitSpawnPoint");
             if (foundSpawn != null)
             {
                 startFruitSpawnPoint = foundSpawn.transform;
-                Debug.Log("StartFruitSpawnPoint retrouvé automatiquement.");
+                Debug.Log("StartFruitSpawnPoint retrouvÃ© automatiquement.");
             }
             else
             {
-                Debug.LogWarning("Aucun StartFruitSpawnPoint trouvé, utilisation position par défaut.");
+                Debug.LogWarning("Aucun StartFruitSpawnPoint trouvÃ©, utilisation position par dÃ©faut.");
             }
         }
 
-        // Vérifie que le prefab est valide
+        // VÃ©rifie que le prefab est valide
         if (startFruitPrefab == null)
         {
             Debug.LogWarning("StartFruitPrefab manquant, tentative de chargement depuis Resources...");
@@ -165,7 +180,7 @@ public class GameManager : MonoBehaviour
 
             if (startFruitPrefab == null)
             {
-                Debug.LogError("Aucun StartFruit trouvé !");
+                Debug.LogError("Aucun StartFruit trouvÃ© !");
                 return;
             }
         }
@@ -181,7 +196,7 @@ public class GameManager : MonoBehaviour
 
         Instantiate(startFruitPrefab, spawnPos, spawnRot);
 
-        Debug.Log($"StartFruit respawné à {spawnPos}");
+        Debug.Log($"StartFruit respawnÃ© Ã  {spawnPos}");
     }
 
 
@@ -198,10 +213,20 @@ public class GameManager : MonoBehaviour
 
     public void ResetFruitsOnBomb()
     {
-        foreach (var rb in FindObjectsOfType<Rigidbody>())
+        int sliceableLayer = LayerMask.NameToLayer("Sliceable");
+
+        foreach (var rb in FindObjectsByType<Rigidbody>())
         {
-            if (rb.CompareTag("Sliceable"))
+            // Les objets du menu ne sont pas des fruits de la partie.
+            if (difficultyMenu != null && rb.transform.IsChildOf(difficultyMenu.transform))
+                continue;
+
+            if (rb.gameObject.layer == sliceableLayer &&
+                !rb.CompareTag("Bomb") &&
+                !rb.CompareTag("StartButton"))
+            {
                 Destroy(rb.gameObject);
+            }
         }
     }
 
@@ -230,7 +255,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            // Unity lève une exception si le tag n'existe pas
+            // Unity lÃ¨ve une exception si le tag n'existe pas
             GameObject temp = new GameObject();
             bool hasTag = temp.CompareTag(tag);
             Destroy(temp);

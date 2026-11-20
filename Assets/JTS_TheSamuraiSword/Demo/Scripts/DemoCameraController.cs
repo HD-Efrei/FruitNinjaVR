@@ -80,7 +80,7 @@ public class DemoCameraController : MonoBehaviour {
 		if (wireframeShader != null && SystemInfo.graphicsShaderLevel >= 40){
 
 			//assign new materials array
-	        Renderer[] rendObjs = FindObjectsOfType(typeof(Renderer)) as Renderer[];
+	        Renderer[] rendObjs = FindObjectsByType<Renderer>();
 	        foreach (Renderer objRenderer in rendObjs) {
 
 	        	if(!excludeRenderers.Contains(objRenderer)){

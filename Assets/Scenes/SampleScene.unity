@@ -249,6 +249,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -627,6 +628,7 @@ GameObject:
   - component: {fileID: 50696464}
   - component: {fileID: 50696463}
   - component: {fileID: 50696462}
+  - component: {fileID: 50696466}
   m_Layer: 6
   m_Name: Hardcore
   m_TagString: Untagged
@@ -746,6 +748,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &50696465
 MeshFilter:
@@ -755,6 +758,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50696460}
   m_Mesh: {fileID: 4300002, guid: 38972d9a807375f4fbdbf2e076aa183f, type: 3}
+--- !u!114 &50696466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50696460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb42de694d784182a2bfde76bc8f44e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyChoice
+  difficulty: 2
+  spawner: {fileID: 0}
+  label: {fileID: 0}
+  spawnInterval: 1
+  launchForce: 7
+  respawnDelay: 0.6
+  outlineColor: {r: 1, g: 0.85, b: 0.1, a: 1}
+  outlineWidth: 0.008
+  selectedTextOutlineWidth: 0.25
 --- !u!1001 &60363158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2588,6 +2612,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2833,7 +2858,7 @@ Transform:
   m_GameObject: {fileID: 252936136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5207, y: 0.79379, z: 5.46489}
+  m_LocalPosition: {x: -0.5, y: 0.79379, z: 5.46489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3977,6 +4002,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1829371231341652, guid: 426b44a7575f71e479fab4f4e8431989, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1969380964}
+    - targetCorrespondingSourceObject: {fileID: 1829371231341652, guid: 426b44a7575f71e479fab4f4e8431989, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1969380968}
   m_SourcePrefab: {fileID: 100100000, guid: 426b44a7575f71e479fab4f4e8431989, type: 3}
 --- !u!1001 &347218233
 PrefabInstance:
@@ -4144,6 +4172,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4869,6 +4898,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &402407687
 MeshFilter:
@@ -10688,6 +10718,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10824,6 +10855,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -12321,6 +12353,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1039938843
 PrefabInstance:
@@ -13191,6 +13224,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 880970725214738984, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
   m_PrefabInstance: {fileID: 1109274291}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1111167207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 843879479705570053, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
+  m_PrefabInstance: {fileID: 1128333828}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1127244130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13402,7 +13440,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 843879479705570053, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1954664472}
   m_SourcePrefab: {fileID: 100100000, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
 --- !u!1 &1134013816
 GameObject:
@@ -13684,6 +13725,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -14726,7 +14768,7 @@ MonoBehaviour:
   - {fileID: 1813460254}
   - {fileID: 1418462529}
   - {fileID: 500617780}
-  bombPrefab: {fileID: 1038488292}
+  bombPrefab: {fileID: 7271579548227459904, guid: 6f233ede8c330284f952353081efa079, type: 3}
   goldenFruitPrefab: {fileID: 1948195257}
   bombSpawnChance: 0.15
   spawnInterval: 1.5
@@ -14889,7 +14931,7 @@ Transform:
   m_GameObject: {fileID: 1241366424}
   serializedVersion: 2
   m_LocalRotation: {x: -0.68112206, y: 0.18953425, z: 0.18946809, w: 0.68135995}
-  m_LocalPosition: {x: 1.1, y: 2.75, z: 2.12}
+  m_LocalPosition: {x: 1.689, y: 1.4, z: 1.765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15399,7 +15441,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   spawner: {fileID: 1231334730}
-  startFruitPrefab: {fileID: 1724971545675932}
+  difficultyMenu: {fileID: 252936136}
+  startFruitPrefab: {fileID: 843879479705570053, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
   startFruitSpawnPoint: {fileID: 1241366425}
   scoreText: {fileID: 1166234577}
   timerText: {fileID: 942150807}
@@ -15414,7 +15457,7 @@ Transform:
   m_GameObject: {fileID: 1268131890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0517, y: -0, z: 1.14753}
+  m_LocalPosition: {x: -3, y: -0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21784,6 +21827,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -23381,6 +23425,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4656086551512297647, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
   m_PrefabInstance: {fileID: 1128333828}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954664472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111167207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb42de694d784182a2bfde76bc8f44e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyChoice
+  difficulty: 0
+  spawner: {fileID: 0}
+  label: {fileID: 0}
+  spawnInterval: 2
+  launchForce: 5
+  respawnDelay: 0.6
+  outlineColor: {r: 1, g: 0.85, b: 0.1, a: 1}
+  outlineWidth: 0.008
+  selectedTextOutlineWidth: 0.25
 --- !u!1001 &1955530062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23542,6 +23607,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -23641,6 +23707,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1969380968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969380962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb42de694d784182a2bfde76bc8f44e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyChoice
+  difficulty: 1
+  spawner: {fileID: 0}
+  label: {fileID: 0}
+  spawnInterval: 1.5
+  launchForce: 6
+  respawnDelay: 0.6
+  outlineColor: {r: 1, g: 0.85, b: 0.1, a: 1}
+  outlineWidth: 0.008
+  selectedTextOutlineWidth: 0.25
 --- !u!1001 &1975963294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25421,11 +25508,6 @@ MonoBehaviour:
   velocityAverageFrames: 5
   angularVelocityAverageFrames: 11
   estimateOnAwake: 1
---- !u!1 &1724971545675932 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 843879479705570053, guid: 6d4eb3d6cc240b54c8ecea936e1b676f, type: 3}
-  m_PrefabInstance: {fileID: 8708483612621046932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &648147160049788966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25680,6 +25762,10 @@ PrefabInstance:
     - target: {fileID: 4613781262553435332, guid: 7ed7f1fd02b461a4b921fbcf4b2f37ee, type: 3}
       propertyPath: m_TagString
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005153675451498793, guid: 7ed7f1fd02b461a4b921fbcf4b2f37ee, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

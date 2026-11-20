@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class FruitRotation : MonoBehaviour
 {
     [Header("Vitesse de rotation")]
-    public float rotationSpeed = 180f; // degrés/seconde
+    public float rotationSpeed = 180f; // degrÃ©s/seconde
 
     private Rigidbody rb;
 
@@ -11,7 +11,7 @@ public class FruitRotation : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        // Si un Rigidbody existe, on lui applique une rotation aléatoire initiale
+        // Si un Rigidbody existe, on lui applique une rotation alÃ©atoire initiale
         if (rb != null)
         {
             Vector3 randomTorque = Random.insideUnitSphere * (rotationSpeed * 0.1f);
