@@ -23,6 +23,10 @@ public class SlideObject : MonoBehaviour
     public string startButtonTag = "StartButton";
     public GameObject gameManager;
 
+    [Header("Variantes Quest")]
+    public GameObject explosionVFXQuest;
+    public GameObject fruitJuiceFXPrefabQuest;
+
     private AudioSource audioSource;
 
     // Liste des objets deja coupes recemment
@@ -31,6 +35,10 @@ public class SlideObject : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_ANDROID
+        explosionVFX = explosionVFXQuest;
+        fruitJuiceFXPrefab = fruitJuiceFXPrefabQuest;
+#endif
         audioSource = gameObject.AddComponent<AudioSource>();
 
         if (gameManager == null)
@@ -49,7 +57,7 @@ public class SlideObject : MonoBehaviour
             if (!recentlySliced.Contains(target))
             {
                 StartCoroutine(RegisterSliceCooldown(target)); // Marque cet objet comme "deja coupe" pendant un court delai
-                SliceObject(target);
+                SliceObject(target, hit.point);
             }
         }
     }
@@ -63,9 +71,21 @@ public class SlideObject : MonoBehaviour
 
     public void SliceObject(GameObject target)
     {
+        if (target != null) SliceObject(target, target.transform.position);
+    }
+
+    private void SliceObject(GameObject target, Vector3 contactPoint)
+    {
 
         
         if (target == null) return;
+
+        VFXPreviewButton previewButton = target.GetComponentInParent<VFXPreviewButton>();
+        if (previewButton != null)
+        {
+            previewButton.Cut(contactPoint, crossSectionMaterial);
+            return;
+        }
 
         GameManager gm = gameManager != null ? gameManager.GetComponent<GameManager>() : null;
 
@@ -140,7 +160,7 @@ public class SlideObject : MonoBehaviour
         // Effet de jus de fruit
         if (fruitJuiceFXPrefab != null)
         {
-            GameObject fx = Instantiate(fruitJuiceFXPrefab, target.transform.position + Vector3.up * 0.2f, Quaternion.identity);
+            GameObject fx = Instantiate(fruitJuiceFXPrefab, contactPoint, Quaternion.identity);
             fx.transform.parent = null;
 
             var ps = fx.GetComponent<ParticleSystem>();
